@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+    id 'application'
+    id "se.patrikerdes.use-latest-versions" version "0.2.18"
+    id "com.github.ben-manes.versions" version "0.46.0"
+    id 'checkstyle'
+    id 'jacoco'
+    id 'com.adarshr.test-logger' version '3.2.0'
+}
+
+group 'hexlet.code'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation(
+            'org.junit.jupiter:junit-jupiter-api:5.9.2',
+            'org.assertj:assertj-core:3.24.2'
+    )
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+testlogger {
+    showStandardStreams true
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = true
+    }
+}
+
+application {
+    mainClass = 'hexlet.code.App'
+}
+
+compileJava {
+    options.release = 17
+}
