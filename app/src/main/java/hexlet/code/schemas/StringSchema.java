@@ -23,10 +23,8 @@ public class StringSchema {
     }
 
     public boolean isValid(Object validatingObject) {
-        if (validatingObject == null && !isRequired) {
-            return true;
-        } else if (validatingObject == null) {
-            return false;
+        if (validatingObject == null) {
+            return isValidValidatingObjectNull(isRequired);
         }
 
         if (containsText != null) {
@@ -37,5 +35,9 @@ public class StringSchema {
             return true;
         }
         return false;
+    }
+
+    private boolean isValidValidatingObjectNull(boolean isRequiredNull) {
+        return !isRequiredNull;
     }
 }
