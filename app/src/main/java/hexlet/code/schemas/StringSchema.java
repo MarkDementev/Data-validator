@@ -1,39 +1,27 @@
 package hexlet.code.schemas;
 
-public class StringSchema {
-    private boolean isRequired;
+public class StringSchema extends BaseSchema {
     private String containsText;
 
     public StringSchema() {
-        this.isRequired = false;
+        super();
     }
 
-    public StringSchema(String containsText, boolean isRequired) {
-        this.containsText = containsText;
+    public StringSchema(boolean isRequired, String containsText) {
         this.isRequired = isRequired;
-    }
-
-    public void required() {
-        isRequired = true;
+        this.containsText = containsText;
     }
 
     public StringSchema contains(String newContainsText) {
         this.containsText = newContainsText;
-        return new StringSchema(containsText, isRequired);
+        return new StringSchema(isRequired, containsText);
     }
 
-    public boolean isValid(Object validatingObject) {
-        if (validatingObject == null) {
-            return isValidValidatingObjectNull(isRequired);
-        }
-
+    @Override
+    public boolean isValidStringSchema(Object validatingObject) {
         if (containsText != null) {
             return validatingObject.toString().contains(containsText);
         }
-        return validatingObject.getClass() == String.class && validatingObject.toString().length() > 0;
-    }
-
-    private boolean isValidValidatingObjectNull(boolean isRequiredNull) {
-        return !isRequiredNull;
+        return validatingObject.toString().length() > 0;
     }
 }

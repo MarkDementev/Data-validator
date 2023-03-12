@@ -1,14 +1,13 @@
 package hexlet.code.schemas;
 
-public class NumberSchema {
-    private boolean isRequired;
+public class NumberSchema extends BaseSchema {
     private boolean isOnlyPositive;
     private boolean isHasRange;
     private int startRange;
     private int endRange;
 
     public NumberSchema() {
-        this.isRequired = false;
+        super();
         this.isOnlyPositive = false;
         this.isHasRange = false;
         this.startRange = 0;
@@ -23,10 +22,6 @@ public class NumberSchema {
         this.endRange = endRange;
     }
 
-    public void required() {
-        isRequired = true;
-    }
-
     public NumberSchema positive() {
         this.isOnlyPositive = true;
         return new NumberSchema(isRequired, true, isHasRange, startRange, endRange);
@@ -38,28 +33,18 @@ public class NumberSchema {
         endRange = newEndRange;
     }
 
-    public boolean isValid(Object validatingObject) {
-        if (validatingObject == null) {
-            return isValidValidatingObjectNull(isRequired);
-        }
-
+    @Override
+    public boolean isValidNumberSchema(Object validatingObject) {
         if (isOnlyPositive && isHasRange) {
-            return validatingObject.getClass() == Integer.class
-                    && (int) validatingObject >= startRange
-                    && (int) validatingObject <= endRange
-                    && (int) validatingObject > 0;
+            return (int) validatingObject >= startRange
+                    & (int) validatingObject <= endRange
+                    & (int) validatingObject > 0;
         } else if (isHasRange) {
-            return validatingObject.getClass() == Integer.class
-                    & (int) validatingObject >= startRange
-                    & (int) validatingObject <= endRange;
+            return (int) validatingObject >= startRange
+                    && (int) validatingObject <= endRange;
         } else if (isOnlyPositive) {
-            return validatingObject.getClass() == Integer.class
-                    && (int) validatingObject > 0;
+            return (int) validatingObject > 0;
         }
-        return validatingObject.getClass() == Integer.class;
-    }
-
-    private boolean isValidValidatingObjectNull(boolean isRequiredNull) {
-        return !isRequiredNull;
+        return true;
     }
 }
