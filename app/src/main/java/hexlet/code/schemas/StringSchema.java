@@ -30,11 +30,7 @@ public class StringSchema {
         if (containsText != null) {
             return validatingObject.toString().contains(containsText);
         }
-
-        if (validatingObject.getClass() == String.class && validatingObject.toString().length() > 0) {
-            return true;
-        }
-        return false;
+        return validatingObject.getClass() == String.class && validatingObject.toString().length() > 0;
     }
 
     private boolean isValidValidatingObjectNull(boolean isRequiredNull) {

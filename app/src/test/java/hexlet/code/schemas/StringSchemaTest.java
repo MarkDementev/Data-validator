@@ -22,7 +22,7 @@ public class StringSchemaTest {
     private StringSchema testSchema;
 
     @BeforeEach
-    public void makeValidatorAndSchema() {
+    public void makeStringSchema() {
         testSchema = testValidator.string();
     }
 
