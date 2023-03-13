@@ -5,7 +5,15 @@ import hexlet.code.Validator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.List;
+import java.util.Set;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Hashtable;
+import java.util.TreeMap;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -52,7 +60,7 @@ public class MapSchemaTest {
         Map<String, String> testMap = new HashMap<>();
         testMap.put(FIRST_STRING, SECOND_STRING);
         assertThat(testSchema.isValid(testMap)).isEqualTo(true);
-        testMap.sizeof(MAP_ELEMENTS_COUNT);
+        testSchema.sizeof(MAP_ELEMENTS_COUNT);
         assertThat(testSchema.isValid(testMap)).isEqualTo(false);
         testMap.put(SECOND_STRING, THIRD_STRING);
         assertThat(testSchema.isValid(testMap)).isEqualTo(true);

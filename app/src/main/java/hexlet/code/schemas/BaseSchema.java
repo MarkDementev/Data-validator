@@ -1,5 +1,7 @@
 package hexlet.code.schemas;
 
+import java.util.Map;
+
 public class BaseSchema {
     protected boolean isRequired;
 
@@ -18,6 +20,8 @@ public class BaseSchema {
             return isValidStringSchema(validatingObject);
         } else if (validatingObject.getClass() == Integer.class) {
             return isValidNumberSchema(validatingObject);
+        } else if (validatingObject instanceof Map) {
+            return isValidMapSchema((Map) validatingObject);
         }
         return false;
     }
@@ -31,6 +35,10 @@ public class BaseSchema {
     }
 
     public boolean isValidNumberSchema(Object validatingObject) {
+        return false;
+    }
+
+    public boolean isValidMapSchema(Map validatingMap) {
         return false;
     }
 }
