@@ -17,11 +17,11 @@ public class BaseSchema {
         if (validatingObject == null) {
             return isValidWhenNull(isRequired);
         } else if (validatingObject.getClass() == String.class) {
-            return isValidStringSchema(validatingObject);
+            return isValidStringSchema(validatingObject.toString());
         } else if (validatingObject.getClass() == Integer.class) {
-            return isValidNumberSchema(validatingObject);
+            return isValidNumberSchema((int) validatingObject);
         } else if (validatingObject instanceof Map) {
-            return isValidMapSchema((Map) validatingObject);
+            return isValidMapSchema((Map<?, ?>) validatingObject);
         }
         return false;
     }
@@ -30,15 +30,15 @@ public class BaseSchema {
         return !isRequiredNull;
     }
 
-    public boolean isValidStringSchema(Object validatingObject) {
+    public boolean isValidStringSchema(String validatingString) {
         return false;
     }
 
-    public boolean isValidNumberSchema(Object validatingObject) {
+    public boolean isValidNumberSchema(int validatingNumber) {
         return false;
     }
 
-    public boolean isValidMapSchema(Map validatingMap) {
+    public boolean isValidMapSchema(Map<?, ?> validatingMap) {
         return false;
     }
 }

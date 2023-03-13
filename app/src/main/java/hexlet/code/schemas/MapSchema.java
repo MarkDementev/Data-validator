@@ -18,7 +18,7 @@ public class MapSchema extends BaseSchema {
     }
 
     @Override
-    public boolean isValidMapSchema(Map validatingMap) {
+    public boolean isValidMapSchema(Map<?, ?> validatingMap) {
         if (isSizeOf) {
             return validatingMap.size() == mapSize;
         }

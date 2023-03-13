@@ -34,16 +34,13 @@ public class NumberSchema extends BaseSchema {
     }
 
     @Override
-    public boolean isValidNumberSchema(Object validatingObject) {
+    public boolean isValidNumberSchema(int validatingNumber) {
         if (isOnlyPositive && isHasRange) {
-            return (int) validatingObject >= startRange
-                    & (int) validatingObject <= endRange
-                    & (int) validatingObject > 0;
+            return validatingNumber >= startRange & validatingNumber <= endRange & validatingNumber > 0;
         } else if (isHasRange) {
-            return (int) validatingObject >= startRange
-                    && (int) validatingObject <= endRange;
+            return validatingNumber >= startRange && validatingNumber <= endRange;
         } else if (isOnlyPositive) {
-            return (int) validatingObject > 0;
+            return validatingNumber > 0;
         }
         return true;
     }

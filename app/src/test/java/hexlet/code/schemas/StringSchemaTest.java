@@ -50,12 +50,15 @@ public class StringSchemaTest {
 
     @Test
     public void testIsValidWithContains() {
-        testSchema.contains(FIRST_CONTAINS_STRING);
-        assertThat(testSchema.isValid(SECOND_VALIDATING_STRING)).isEqualTo(true);
-        testSchema.contains(SECOND_CONTAINS_STRING);
-        assertThat(testSchema.isValid(SECOND_VALIDATING_STRING)).isEqualTo(true);
-        testSchema.contains(THIRD_CONTAINS_STRING);
-        assertThat(testSchema.isValid(FIRST_VALIDATING_STRING)).isEqualTo(false);
+        assertThat(testSchema.contains(FIRST_CONTAINS_STRING)
+                .isValid(SECOND_VALIDATING_STRING))
+                .isEqualTo(true);
+        assertThat(testSchema.contains(SECOND_CONTAINS_STRING)
+                .isValid(SECOND_VALIDATING_STRING))
+                .isEqualTo(true);
+        assertThat(testSchema.contains(THIRD_CONTAINS_STRING)
+                .isValid(FIRST_VALIDATING_STRING))
+                .isEqualTo(false);
         assertThat(testSchema.isValid(SECOND_CONTAINS_STRING)).isEqualTo(false);
     }
 }

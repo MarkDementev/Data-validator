@@ -18,10 +18,10 @@ public class StringSchema extends BaseSchema {
     }
 
     @Override
-    public boolean isValidStringSchema(Object validatingObject) {
+    public boolean isValidStringSchema(String validatingString) {
         if (containsText != null) {
-            return validatingObject.toString().contains(containsText);
+            return validatingString.contains(containsText);
         }
-        return validatingObject.toString().length() > 0;
+        return validatingString.length() > 0;
     }
 }
