@@ -83,6 +83,8 @@
     <!--   <property name="headerFile" value="${checkstyle.header.file}"/> -->
     <!--   <property name="fileExtensions" value="java"/> -->
     <!-- </module> -->
+      
+    <module name="SuppressWarningsFilter" />
 
     <module name="TreeWalker">
 
@@ -192,5 +194,7 @@
         <module name="SuppressionCommentFilter">
             <property name="checkFormat" value="MethodLength"/>
         </module>
+            
+        <module name="SuppressWarningsHolder" />
     </module>
 </module>
