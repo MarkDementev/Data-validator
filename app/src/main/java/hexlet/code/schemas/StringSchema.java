@@ -1,6 +1,6 @@
 package hexlet.code.schemas;
 
-public final class StringSchema extends BaseSchema {
+public final class StringSchema extends BaseSchema implements StringValidation {
     private String containsText;
     private int minLength;
 
@@ -26,7 +26,6 @@ public final class StringSchema extends BaseSchema {
         return new StringSchema(isRequired, containsText, minLength, isHasShape);
     }
 
-    @Override
     public boolean isValidStringSchema(String validatingString) {
         if (containsText != null) {
             return validatingString.contains(containsText) & validatingString.length() >= minLength;
