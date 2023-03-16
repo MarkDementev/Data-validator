@@ -21,7 +21,7 @@ public class BaseSchema {
         return new BaseSchema(true, isHasShape);
     }
 
-    public boolean isValid(Object validatingObject) {
+    public final boolean isValid(Object validatingObject) {
         if (validatingObject == null) {
             return isValidWhenNull(isRequired);
         } else if (validatingObject.getClass() == String.class) {
