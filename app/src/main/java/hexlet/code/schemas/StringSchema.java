@@ -6,13 +6,7 @@ public class StringSchema extends BaseSchema {
 
     public StringSchema() {
         super();
-        this.minLength = 0;
-    }
-
-    public StringSchema(boolean isRequired, String containsText, int minLength) {
-        this.isRequired = isRequired;
-        this.containsText = containsText;
-        this.minLength = minLength;
+        this.minLength = 1;
     }
 
     public StringSchema(boolean isRequired, String containsText, int minLength, boolean isHasShape) {
@@ -23,21 +17,21 @@ public class StringSchema extends BaseSchema {
     }
 
     public StringSchema contains(String newContainsText) {
-        this.containsText = newContainsText;
-        return new StringSchema(isRequired, containsText, minLength);
+        containsText = newContainsText;
+        return new StringSchema(isRequired, containsText, minLength, isHasShape);
     }
 
     public StringSchema minLength(int newMinLength) {
-        this.minLength = newMinLength;
-        return new StringSchema(isRequired, containsText, minLength);
+        minLength = newMinLength;
+        return new StringSchema(isRequired, containsText, minLength, isHasShape);
     }
 
     @Override
     public boolean isValidStringSchema(String validatingString) {
         if (containsText != null) {
-            return validatingString.contains(containsText);
+            return validatingString.contains(containsText) & validatingString.length() >= minLength;
         }
-        return validatingString.length() > minLength;
+        return validatingString.length() >= minLength;
     }
 
     @Override

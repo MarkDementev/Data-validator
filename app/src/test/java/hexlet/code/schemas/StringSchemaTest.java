@@ -18,7 +18,7 @@ public class StringSchemaTest {
     private static final String FIRST_CONTAINS_STRING = "De";
     private static final String SECOND_CONTAINS_STRING = "Dem";
     private static final String THIRD_CONTAINS_STRING = "Deme";
-    private static final int MIN_LENGTH = 4;
+    private static final int MIN_LENGTH = 5;
     private Validator testValidator = new Validator();
     private StringSchema testSchema;
 
@@ -37,8 +37,7 @@ public class StringSchemaTest {
     @Test
     public void testIsValidStringArgument() {
         assertThat(testSchema.isValid(EMPTY_STRING)).isEqualTo(false);
-        testSchema.minLength(MIN_LENGTH);
-        assertThat(testSchema.isValid(FIRST_VALIDATING_STRING)).isEqualTo(false);
+        assertThat(testSchema.minLength(MIN_LENGTH).isValid(FIRST_VALIDATING_STRING)).isEqualTo(false);
         assertThat(testSchema.isValid(SECOND_VALIDATING_STRING)).isEqualTo(true);
         assertThat(testSchema.isValid(THIRD_VALIDATING_STRING)).isEqualTo(true);
     }
