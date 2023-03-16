@@ -35,16 +35,19 @@ public class MapSchema extends BaseSchema {
     @Override
     public boolean isValidWithShape(Map<?, ?> validatingMap) {
         for (Map.Entry<String, BaseSchema> shapesMapElement : shapesMap.entrySet()) {
-            if (shapesMapElement.toString().contains("Number")) {
-                NumberSchema numberSchema = (NumberSchema) shapesMapElement.getValue();
+            BaseSchema valueValidation = shapesMapElement.getValue();
+            Object validatingValue = validatingMap.get(shapesMapElement.getKey());
 
-                if (!numberSchema.isValid(validatingMap.get(shapesMapElement.getKey()))) {
+            if (shapesMapElement.toString().contains("Number")) {
+                NumberSchema numberSchema = (NumberSchema) valueValidation;
+
+                if (!numberSchema.isValid(validatingValue)) {
                     return false;
                 }
             } else {
-                StringSchema stringSchema = (StringSchema) shapesMapElement.getValue();
+                StringSchema stringSchema = (StringSchema) valueValidation;
 
-                if (!stringSchema.isValid(validatingMap.get(shapesMapElement.getKey()))) {
+                if (!stringSchema.isValid(validatingValue)) {
                     return false;
                 }
             }
