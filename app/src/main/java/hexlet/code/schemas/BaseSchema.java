@@ -2,7 +2,7 @@ package hexlet.code.schemas;
 
 import java.util.Map;
 
-public class BaseSchema extends SchemasMethods {
+public class BaseSchema {
     protected boolean isRequired;
     protected boolean isHasShape;
 
@@ -40,23 +40,19 @@ public class BaseSchema extends SchemasMethods {
         return !isRequiredNull;
     }
 
-    @Override
-    protected boolean isValidStringSchema(String validatingString) {
+    boolean isValidStringSchema(String validatingString) {
         return false;
     }
 
-    @Override
-    protected boolean isValidNumberSchema(int validatingNumber) {
+    boolean isValidNumberSchema(int validatingNumber) {
         return false;
     }
 
-    @Override
-    protected boolean isValidWithShape(Map<?, ?> validatingMap) {
+    boolean isValidWithShape(Map<?, ?> validatingMap) {
         return false;
     }
 
-    @Override
-    protected boolean isValidMapSchema(Map<?, ?> validatingMap) {
+    boolean isValidMapSchema(Map<?, ?> validatingMap) {
         return false;
     }
 }
