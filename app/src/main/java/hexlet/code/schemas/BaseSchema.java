@@ -16,6 +16,7 @@ public class BaseSchema {
         this.isHasShape = newIsHasShape;
     }
 
+    @SuppressWarnings("checkstyle:DesignForExtension")
     public BaseSchema required() {
         isRequired = true;
         return new BaseSchema(true, isHasShape);
@@ -40,18 +41,22 @@ public class BaseSchema {
         return !isRequiredNull;
     }
 
+    @SuppressWarnings("checkstyle:DesignForExtension")
     protected boolean isValidStringSchema(String validatingString) {
         return false;
     }
 
+    @SuppressWarnings("checkstyle:DesignForExtension")
     protected boolean isValidNumberSchema(int validatingNumber) {
         return false;
     }
 
+    @SuppressWarnings("checkstyle:DesignForExtension")
     protected boolean isValidWithShape(Map<?, ?> validatingMap) {
         return false;
     }
 
+    @SuppressWarnings("checkstyle:DesignForExtension")
     protected boolean isValidMapSchema(Map<?, ?> validatingMap) {
         return false;
     }
