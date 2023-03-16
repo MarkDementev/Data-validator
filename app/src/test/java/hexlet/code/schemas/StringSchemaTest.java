@@ -30,13 +30,14 @@ public class StringSchemaTest {
     @Test
     public void testIsValidAfterBeforeRequired() {
         assertThat(testSchema.isValid(null)).isEqualTo(true);
+        assertThat(testSchema.isValid(EMPTY_STRING)).isEqualTo(true);
         testSchema.required();
+        assertThat(testSchema.isValid(EMPTY_STRING)).isEqualTo(false);
         assertThat(testSchema.isValid(null)).isEqualTo(false);
     }
 
     @Test
     public void testIsValidStringArgument() {
-        assertThat(testSchema.isValid(EMPTY_STRING)).isEqualTo(false);
         assertThat(testSchema.minLength(MIN_LENGTH).isValid(FIRST_VALIDATING_STRING)).isEqualTo(false);
         assertThat(testSchema.isValid(SECOND_VALIDATING_STRING)).isEqualTo(true);
         assertThat(testSchema.isValid(THIRD_VALIDATING_STRING)).isEqualTo(true);

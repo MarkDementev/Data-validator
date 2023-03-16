@@ -6,7 +6,7 @@ public class StringSchema extends BaseSchema {
 
     public StringSchema() {
         super();
-        this.minLength = 1;
+        this.minLength = 0;
     }
 
     public StringSchema(boolean isRequired, String containsText, int minLength, boolean isHasShape) {
@@ -37,6 +37,7 @@ public class StringSchema extends BaseSchema {
     @Override
     public StringSchema required() {
         isRequired = true;
+        minLength = 1;
         return new StringSchema(true, containsText, minLength, isHasShape);
     }
 }
