@@ -38,18 +38,8 @@ public class MapSchema extends BaseSchema {
             BaseSchema valueValidation = shapesMapElement.getValue();
             Object validatingValue = validatingMap.get(shapesMapElement.getKey());
 
-            if (shapesMapElement.toString().contains("Number")) {
-                NumberSchema numberSchema = (NumberSchema) valueValidation;
-
-                if (!numberSchema.isValid(validatingValue)) {
-                    return false;
-                }
-            } else {
-                StringSchema stringSchema = (StringSchema) valueValidation;
-
-                if (!stringSchema.isValid(validatingValue)) {
-                    return false;
-                }
+            if (!valueValidation.isValid(validatingValue)) {
+                return false;
             }
         }
         return true;
