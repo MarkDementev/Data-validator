@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class NumberSchemaTest {
+public final class NumberSchemaTest {
     private static final int ZERO = 0;
     private static final int FIRST_VALIDATING_NEGATIVE_INT = -100;
     private static final int SECOND_VALIDATING_NEGATIVE_INT = -50;

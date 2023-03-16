@@ -17,7 +17,7 @@ import java.util.TreeMap;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class MapSchemaTest {
+public final class MapSchemaTest {
     private static final int[] INT_ARRAY_VALIDATING_OBJECT = {};
     private static final List<String> STRING_LIST_VALIDATING_OBJECT = new ArrayList<>();
     private static final Set<Boolean> BOOLEAN_SET_VALIDATING_OBJECT = new HashSet<>();

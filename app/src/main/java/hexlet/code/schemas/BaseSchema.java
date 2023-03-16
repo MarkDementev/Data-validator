@@ -12,8 +12,8 @@ public class BaseSchema {
     }
 
     public BaseSchema(boolean newIsRequired, boolean newIsHasShape) {
-        isRequired = newIsRequired;
-        isHasShape = newIsHasShape;
+        this.isRequired = newIsRequired;
+        this.isHasShape = newIsHasShape;
     }
 
     public BaseSchema required() {

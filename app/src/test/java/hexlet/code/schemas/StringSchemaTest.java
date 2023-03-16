@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class StringSchemaTest {
+public final class StringSchemaTest {
     private static final String EMPTY_STRING = "";
     private static final String FIRST_VALIDATING_STRING = "Mark";
     private static final String SECOND_VALIDATING_STRING = "Dementev";

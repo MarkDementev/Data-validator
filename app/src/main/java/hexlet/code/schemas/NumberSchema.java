@@ -24,7 +24,7 @@ public final class NumberSchema extends BaseSchema {
     }
 
     public NumberSchema positive() {
-        this.isOnlyPositive = true;
+        isOnlyPositive = true;
         return new NumberSchema(isRequired, true, isHasRange, startRange, endRange);
     }
 
