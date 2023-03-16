@@ -16,7 +16,7 @@ public class BaseSchema {
         this.isHasShape = newIsHasShape;
     }
 
-    protected BaseSchema required() {
+    public BaseSchema required() {
         isRequired = true;
         return new BaseSchema(true, isHasShape);
     }
