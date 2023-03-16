@@ -16,7 +16,7 @@ public class BaseSchema {
         this.isHasShape = newIsHasShape;
     }
 
-    public BaseSchema required() {
+    protected BaseSchema required() {
         isRequired = true;
         return new BaseSchema(true, isHasShape);
     }
@@ -40,19 +40,19 @@ public class BaseSchema {
         return !isRequiredNull;
     }
 
-    public boolean isValidStringSchema(String validatingString) {
+    protected boolean isValidStringSchema(String validatingString) {
         return false;
     }
 
-    public boolean isValidNumberSchema(int validatingNumber) {
+    protected boolean isValidNumberSchema(int validatingNumber) {
         return false;
     }
 
-    public boolean isValidWithShape(Map<?, ?> validatingMap) {
+    protected boolean isValidWithShape(Map<?, ?> validatingMap) {
         return false;
     }
 
-    public boolean isValidMapSchema(Map<?, ?> validatingMap) {
+    protected boolean isValidMapSchema(Map<?, ?> validatingMap) {
         return false;
     }
 }
