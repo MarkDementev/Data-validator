@@ -4,13 +4,21 @@ import java.util.Map;
 
 public class BaseSchema {
     protected boolean isRequired;
+    protected boolean isHasShape;
 
     public BaseSchema() {
         this.isRequired = false;
+        this.isHasShape = false;
     }
 
-    public void required() {
+    public BaseSchema(boolean newIsRequired, boolean newIsHasShape) {
+        isRequired = newIsRequired;
+        isHasShape = newIsHasShape;
+    }
+
+    public BaseSchema required() {
         isRequired = true;
+        return new BaseSchema(true, isHasShape);
     }
 
     public boolean isValid(Object validatingObject) {
@@ -20,7 +28,9 @@ public class BaseSchema {
             return isValidStringSchema(validatingObject.toString());
         } else if (validatingObject.getClass() == Integer.class) {
             return isValidNumberSchema((int) validatingObject);
-        } else if (validatingObject instanceof Map) {
+        } else if (validatingObject instanceof Map & isHasShape) {
+            return isValidWithShape((Map<?, ?>) validatingObject);
+        } else if (validatingObject instanceof Map & !isHasShape) {
             return isValidMapSchema((Map<?, ?>) validatingObject);
         }
         return false;
@@ -35,6 +45,10 @@ public class BaseSchema {
     }
 
     public boolean isValidNumberSchema(int validatingNumber) {
+        return false;
+    }
+
+    public boolean isValidWithShape(Map<?, ?> validatingMap) {
         return false;
     }
 

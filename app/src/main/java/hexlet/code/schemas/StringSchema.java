@@ -12,6 +12,12 @@ public class StringSchema extends BaseSchema {
         this.containsText = containsText;
     }
 
+    public StringSchema(boolean isRequired, String containsText, boolean isHasShape) {
+        this.isRequired = isRequired;
+        this.containsText = containsText;
+        this.isHasShape = isHasShape;
+    }
+
     public StringSchema contains(String newContainsText) {
         this.containsText = newContainsText;
         return new StringSchema(isRequired, containsText);
@@ -23,5 +29,11 @@ public class StringSchema extends BaseSchema {
             return validatingString.contains(containsText);
         }
         return validatingString.length() > 0;
+    }
+
+    @Override
+    public StringSchema required() {
+        isRequired = true;
+        return new StringSchema(true, containsText, isHasShape);
     }
 }

@@ -25,6 +25,15 @@ public class MapSchemaTest {
     private static final String SECOND_STRING = "Second";
     private static final String THIRD_STRING = "Third";
     private static final int MAP_ELEMENTS_COUNT = 2;
+    private static final String FIRST_KEY = "name";
+    private static final String SECOND_KEY = "age";
+    private static final String FIRST_VALUE = "Kolya";
+    private static final int SECOND_VALUE = 100;
+    private static final String THIRD_VALUE = "Maya";
+    private static final String FOURTH_VALUE = "Valya";
+    private static final int FIFTH_VALUE = -5;
+    private static final String EMPTY_STRING = "";
+
     private Validator testValidator = new Validator();
     private MapSchema testSchema;
 
@@ -64,5 +73,33 @@ public class MapSchemaTest {
         assertThat(testSchema.isValid(testMap)).isEqualTo(false);
         testMap.put(SECOND_STRING, THIRD_STRING);
         assertThat(testSchema.isValid(testMap)).isEqualTo(true);
+    }
+
+    @Test
+    public void testIsValidWithShape() {
+        Map<String, BaseSchema> schemas = new HashMap<>();
+        schemas.put(FIRST_KEY, testValidator.string().required());
+        schemas.put(SECOND_KEY, testValidator.number().positive());
+        testSchema.shape(schemas);
+
+        Map<String, Object> human1 = new HashMap<>();
+        human1.put(FIRST_KEY, FIRST_VALUE);
+        human1.put(SECOND_KEY, SECOND_VALUE);
+        assertThat(testSchema.isValid(human1)).isEqualTo(true);
+
+        Map<String, Object> human2 = new HashMap<>();
+        human2.put(FIRST_KEY, THIRD_VALUE);
+        human2.put(SECOND_KEY, null);
+        assertThat(testSchema.isValid(human2)).isEqualTo(true);
+
+        Map<String, Object> human3 = new HashMap<>();
+        human3.put(FIRST_KEY, EMPTY_STRING);
+        human3.put(SECOND_KEY, null);
+        assertThat(testSchema.isValid(human3)).isEqualTo(false);
+
+        Map<String, Object> human4 = new HashMap<>();
+        human4.put(FIRST_KEY, FOURTH_VALUE);
+        human4.put(SECOND_KEY, FIFTH_VALUE);
+        assertThat(testSchema.isValid(human4)).isEqualTo(false);
     }
 }
