@@ -14,12 +14,13 @@ public class NumberSchema extends BaseSchema {
         this.endRange = 0;
     }
 
-    public NumberSchema(boolean isRequired, boolean isOnlyPositive, boolean isHasRange, int startRange, int endRange) {
-        this.isRequired = isRequired;
-        this.isOnlyPositive = isOnlyPositive;
-        this.isHasRange = isHasRange;
-        this.startRange = startRange;
-        this.endRange = endRange;
+    public NumberSchema(boolean newIsRequired, boolean newIsOnlyPositive,
+                        boolean newIsHasRange, int newStartRange, int newEndRange) {
+        this.isRequired = newIsRequired;
+        this.isOnlyPositive = newIsOnlyPositive;
+        this.isHasRange = newIsHasRange;
+        this.startRange = newStartRange;
+        this.endRange = newEndRange;
     }
 
     public NumberSchema positive() {

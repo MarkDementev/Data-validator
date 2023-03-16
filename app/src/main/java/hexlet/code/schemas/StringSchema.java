@@ -9,11 +9,11 @@ public class StringSchema extends BaseSchema {
         this.minLength = 0;
     }
 
-    public StringSchema(boolean isRequired, String containsText, int minLength, boolean isHasShape) {
-        this.isRequired = isRequired;
-        this.containsText = containsText;
-        this.minLength = minLength;
-        this.isHasShape = isHasShape;
+    public StringSchema(boolean newIsRequired, String newContainsText, int newMinLength, boolean newIsHasShape) {
+        this.isRequired = newIsRequired;
+        this.containsText = newContainsText;
+        this.minLength = newMinLength;
+        this.isHasShape = newIsHasShape;
     }
 
     public StringSchema contains(String newContainsText) {
