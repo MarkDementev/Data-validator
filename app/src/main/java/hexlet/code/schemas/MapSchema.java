@@ -1,47 +1,74 @@
 package hexlet.code.schemas;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.Predicate;
 
 public final class MapSchema extends BaseSchema {
-    private boolean isSizeOf;
-    private int mapSize;
-    private Map<String, BaseSchema> shapesMap = new HashMap<>();
+    private static final String ONLY_MAPS_CHECK_NAME = "onlyMapsCheck";
+    private static final String SIZE_OF_CHECK_NAME = "sizeofCheck";
+    Map<String, BaseSchema> schemas = new HashMap<>();
 
     public MapSchema() {
-        super();
-        this.isSizeOf = false;
-        this.mapSize = 0;
+        addCheck(ONLY_MAPS_CHECK_NAME, onlyMapsCheck());
     }
 
-    public void sizeof(int newMapSize) {
-        isSizeOf = true;
-        mapSize = newMapSize;
+    public MapSchema(boolean isRequired, Map<String, Predicate<Object>> checks,
+                     String checkToAddName, Predicate<Object> checkToAdd) {
+        super(isRequired, checks);
+        addCheck(checkToAddName, checkToAdd);
     }
 
-    @Override
-    public boolean isValidMapSchema(Map<?, ?> validatingMap) {
-        if (isSizeOf) {
-            return validatingMap.size() == mapSize;
+    public MapSchema(boolean isRequired, Map<String, Predicate<Object>> checks,
+                     Map<String, BaseSchema> schemas) {
+        super(isRequired, checks);
+        this.schemas = schemas;
+    }
+
+    public boolean isValid(Map<String, Object> mapToCheck) {
+        if (mapToCheck == null) {
+            return !isRequired;
         }
-        return true;
-    }
 
-    public void shape(Map<String, BaseSchema> schemas) {
-        isHasShape = true;
-        shapesMap.putAll(schemas);
-    }
+        for (Map.Entry<String, BaseSchema> schema : schemas.entrySet()) {
+            String schemaKey = schema.getKey();
+            Object mapToCheckValue = mapToCheck.get(schemaKey);
 
-    @Override
-    public boolean isValidWithShape(Map<?, ?> validatingMap) {
-        for (Map.Entry<String, BaseSchema> shapesMapElement : shapesMap.entrySet()) {
-            BaseSchema valueValidation = shapesMapElement.getValue();
-            Object validatingValue = validatingMap.get(shapesMapElement.getKey());
-
-            if (!valueValidation.isValid(validatingValue)) {
+            if (!schema.getValue().isValid(mapToCheckValue)) {
                 return false;
             }
         }
         return true;
+    }
+
+    MapSchema required() {
+        setIsRequiredTrue();
+        return new MapSchema(isRequired, new LinkedHashMap<>(),
+                ONLY_MAPS_CHECK_NAME, onlyMapsCheck());
+    }
+
+    MapSchema sizeof(int neededSize) {
+        return new MapSchema(isRequired, checks,
+                SIZE_OF_CHECK_NAME, sizeOfCheck(neededSize));
+    }
+
+    MapSchema shape(Map<String, BaseSchema> newSchemas) {
+        this.schemas = newSchemas;
+        return new MapSchema(isRequired, checks, schemas);
+    }
+
+    private Predicate<Object> onlyMapsCheck() {
+        return p -> (p instanceof Map);
+    }
+
+    private Predicate<Object> sizeOfCheck(int neededSize) {
+        return p -> {
+            ObjectMapper mapper = new ObjectMapper();
+            Map<?, ?> pMap = mapper.convertValue(p, Map.class);
+            return pMap.size() == neededSize;
+        };
     }
 }

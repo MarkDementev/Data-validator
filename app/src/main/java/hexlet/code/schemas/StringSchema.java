@@ -1,42 +1,41 @@
 package hexlet.code.schemas;
 
+import java.util.Map;
+import java.util.function.Predicate;
+
 public final class StringSchema extends BaseSchema {
-    private String containsText;
-    private int minLength;
-
     public StringSchema() {
-        super();
-        this.minLength = 0;
+        addCheck("onlyStringsCheck", onlyStringsCheck());
     }
 
-    public StringSchema(boolean newIsRequired, String newContainsText, int newMinLength, boolean newIsHasShape) {
-        this.isRequired = newIsRequired;
-        this.containsText = newContainsText;
-        this.minLength = newMinLength;
-        this.isHasShape = newIsHasShape;
+    public StringSchema(boolean isRequired, Map<String, Predicate<Object>> checks,
+                        String checkToAddName, Predicate<Object> checkToAdd) {
+        super(isRequired, checks);
+        addCheck(checkToAddName, checkToAdd);
     }
 
-    public StringSchema contains(String newContainsText) {
-        containsText = newContainsText;
-        return new StringSchema(isRequired, containsText, minLength, isHasShape);
+    StringSchema required() {
+        setIsRequiredTrue();
+        return new StringSchema(isRequired, checks, "minLengthCheck", minLengthCheck(1));
     }
 
-    public StringSchema minLength(int newMinLength) {
-        minLength = newMinLength;
-        return new StringSchema(isRequired, containsText, minLength, isHasShape);
+    StringSchema minLength(int minLength) {
+        return new StringSchema(isRequired, checks, "minLengthCheck", minLengthCheck(minLength));
     }
 
-    public boolean isValidStringSchema(String validatingString) {
-        if (containsText != null) {
-            return validatingString.contains(containsText) & validatingString.length() >= minLength;
-        }
-        return validatingString.length() >= minLength;
+    StringSchema contains(String textToContains) {
+        return new StringSchema(isRequired, checks, "containsCheck", containsCheck(textToContains));
     }
 
-    @Override
-    public StringSchema required() {
-        isRequired = true;
-        minLength = 1;
-        return new StringSchema(true, containsText, minLength, isHasShape);
+    private Predicate<Object> onlyStringsCheck() {
+        return p -> (p.getClass() == String.class);
+    }
+
+    private Predicate<Object> minLengthCheck(int minLength) {
+        return p -> (p.toString().length() >= minLength);
+    }
+
+    private Predicate<Object> containsCheck(String textToContains) {
+        return p -> (p.toString().contains(textToContains));
     }
 }

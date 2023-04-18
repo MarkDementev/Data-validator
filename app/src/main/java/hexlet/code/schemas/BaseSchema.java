@@ -1,58 +1,40 @@
 package hexlet.code.schemas;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.Predicate;
 
 public class BaseSchema {
+    protected Map<String, Predicate<Object>> checks = new LinkedHashMap<>();
     protected boolean isRequired;
-    protected boolean isHasShape;
 
     public BaseSchema() {
         this.isRequired = false;
-        this.isHasShape = false;
     }
 
-    public BaseSchema(boolean newIsRequired, boolean newIsHasShape) {
-        this.isRequired = newIsRequired;
-        this.isHasShape = newIsHasShape;
+    public BaseSchema(boolean isRequired, Map<String, Predicate<Object>> checks) {
+        this.isRequired = isRequired;
+        this.checks = checks;
     }
 
-    public BaseSchema required() {
+    public final void setIsRequiredTrue() {
         isRequired = true;
-        return new BaseSchema(true, isHasShape);
     }
 
     public final boolean isValid(Object validatingObject) {
         if (validatingObject == null) {
-            return isValidWhenNull(isRequired);
-        } else if (validatingObject.getClass() == String.class) {
-            return isValidStringSchema(validatingObject.toString());
-        } else if (validatingObject.getClass() == Integer.class) {
-            return isValidNumberSchema((int) validatingObject);
-        } else if (validatingObject instanceof Map & isHasShape) {
-            return isValidWithShape((Map<?, ?>) validatingObject);
-        } else if (validatingObject instanceof Map & !isHasShape) {
-            return isValidMapSchema((Map<?, ?>) validatingObject);
+            return !isRequired;
         }
-        return false;
+
+        for (Map.Entry<String, Predicate<Object>> check : checks.entrySet()) {
+            if (!check.getValue().test(validatingObject)) {
+                return false;
+            }
+        }
+        return true;
     }
 
-    private boolean isValidWhenNull(boolean isRequiredNull) {
-        return !isRequiredNull;
-    }
-
-    boolean isValidStringSchema(String validatingString) {
-        return false;
-    }
-
-    boolean isValidNumberSchema(int validatingNumber) {
-        return false;
-    }
-
-    boolean isValidWithShape(Map<?, ?> validatingMap) {
-        return false;
-    }
-
-    boolean isValidMapSchema(Map<?, ?> validatingMap) {
-        return false;
+    protected final void addCheck(String checkToAddName, Predicate<Object> checkToAdd) {
+        checks.put(checkToAddName, checkToAdd);
     }
 }

@@ -33,7 +33,6 @@ public final class MapSchemaTest {
     private static final String FOURTH_VALUE = "Valya";
     private static final int FIFTH_VALUE = -5;
     private static final String EMPTY_STRING = "";
-
     private Validator testValidator = new Validator();
     private MapSchema testSchema;
 

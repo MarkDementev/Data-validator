@@ -1,48 +1,49 @@
 package hexlet.code.schemas;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.function.Predicate;
+
 public final class NumberSchema extends BaseSchema {
-    private boolean isOnlyPositive;
-    private boolean isHasRange;
-    private int startRange;
-    private int endRange;
+    private static final String ONLY_NUMBERS_CHECK_NAME = "onlyNumbersCheck";
+    private static final String POSITIVE_CHECK_NAME = "positiveCheck";
+    private static final String RANGE_CHECK_NAME = "rangeCheck";
 
     public NumberSchema() {
-        super();
-        this.isOnlyPositive = false;
-        this.isHasRange = false;
-        this.startRange = 0;
-        this.endRange = 0;
+        addCheck(ONLY_NUMBERS_CHECK_NAME, onlyNumbersCheck());
     }
 
-    public NumberSchema(boolean newIsRequired, boolean newIsOnlyPositive,
-                        boolean newIsHasRange, int newStartRange, int newEndRange) {
-        this.isRequired = newIsRequired;
-        this.isOnlyPositive = newIsOnlyPositive;
-        this.isHasRange = newIsHasRange;
-        this.startRange = newStartRange;
-        this.endRange = newEndRange;
+    public NumberSchema(boolean isRequired, Map<String, Predicate<Object>> checks,
+                        String checkToAddName, Predicate<Object> checkToAdd) {
+        super(isRequired, checks);
+        addCheck(checkToAddName, checkToAdd);
     }
 
-    public NumberSchema positive() {
-        isOnlyPositive = true;
-        return new NumberSchema(isRequired, true, isHasRange, startRange, endRange);
+    NumberSchema required() {
+        setIsRequiredTrue();
+        return new NumberSchema(isRequired, new LinkedHashMap<>(),
+                ONLY_NUMBERS_CHECK_NAME, onlyNumbersCheck());
     }
 
-    public void range(int newStartRange, int newEndRange) {
-        isHasRange = true;
-        startRange = newStartRange;
-        endRange = newEndRange;
+    NumberSchema positive() {
+        return new NumberSchema(isRequired, checks,
+                POSITIVE_CHECK_NAME, positiveCheck());
     }
 
-    @Override
-    public boolean isValidNumberSchema(int validatingNumber) {
-        if (isOnlyPositive && isHasRange) {
-            return validatingNumber >= startRange & validatingNumber <= endRange & validatingNumber > 0;
-        } else if (isHasRange) {
-            return validatingNumber >= startRange && validatingNumber <= endRange;
-        } else if (isOnlyPositive) {
-            return validatingNumber > 0;
-        }
-        return true;
+    NumberSchema range(int newStartRange, int newEndRange) {
+        return new NumberSchema(isRequired, checks,
+                RANGE_CHECK_NAME, rangeCheck(newStartRange, newEndRange));
+    }
+
+    private Predicate<Object> onlyNumbersCheck() {
+        return p -> (p.getClass() == Integer.class);
+    }
+
+    private Predicate<Object> positiveCheck() {
+        return p -> ((int) p > 0);
+    }
+
+    private Predicate<Object> rangeCheck(int startRange, int endRange) {
+        return p -> ((int) p >= startRange & (int) p <= endRange);
     }
 }
