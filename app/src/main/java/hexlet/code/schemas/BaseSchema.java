@@ -12,9 +12,9 @@ public class BaseSchema {
         this.isRequired = false;
     }
 
-    public BaseSchema(boolean isRequired, Map<String, Predicate<Object>> checks) {
-        this.isRequired = isRequired;
-        this.checks = checks;
+    public BaseSchema(boolean newIsRequired, Map<String, Predicate<Object>> newChecks) {
+        this.isRequired = newIsRequired;
+        this.checks = newChecks;
     }
 
     public final void setIsRequiredTrue() {

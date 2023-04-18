@@ -10,8 +10,7 @@ public final class MapSchema extends BaseSchema {
     private static final String ONLY_MAPS_CHECK_NAME = "onlyMapsCheck";
     private static final String SIZE_OF_CHECK_NAME = "sizeofCheck";
     private static final String SHAPE_CHECK_NAME = "shapeCheck";
-    Map<String, BaseSchema> schemas = new HashMap<>();
-//    Map<String, BaseSchema> schemas = new HashMap<>();
+    private Map<String, BaseSchema> schemas = new HashMap<>();
 
     public MapSchema() {
         addCheck(ONLY_MAPS_CHECK_NAME, onlyMapsCheck());
@@ -25,33 +24,11 @@ public final class MapSchema extends BaseSchema {
 
     public MapSchema(boolean isRequired, Map<String, Predicate<Object>> checks,
                      String checkToAddName, Predicate<Object> checkToAdd,
-                     Map<String, BaseSchema> schemas) {
+                     Map<String, BaseSchema> newSchemas) {
         super(isRequired, checks);
-        this.schemas = schemas;
+        this.schemas = newSchemas;
         addCheck(checkToAddName, checkToAdd);
     }
-
-//    public MapSchema(boolean isRequired, Map<String, Predicate<Object>> checks,
-//                     Map<String, BaseSchema> schemas) {
-//        super(isRequired, checks);
-//        this.schemas = schemas;
-//    }
-
-//    public boolean isValid(Map<String, Object> mapToCheck) {
-//        if (mapToCheck == null) {
-//            return !isRequired;
-//        }
-//
-//        for (Map.Entry<String, BaseSchema> schema : schemas.entrySet()) {
-//            String schemaKey = schema.getKey();
-//            Object mapToCheckValue = mapToCheck.get(schemaKey);
-//
-//            if (!schema.getValue().isValid(mapToCheckValue)) {
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
 
     public MapSchema required() {
         setIsRequiredTrue();
@@ -71,11 +48,6 @@ public final class MapSchema extends BaseSchema {
                 schemas);
     }
 
-//    public MapSchema shape(Map<String, BaseSchema> newSchemas) {
-//        this.schemas = newSchemas;
-//        return new MapSchema(isRequired, checks, schemas);
-//    }
-
     private Predicate<Object> onlyMapsCheck() {
         return p -> (p instanceof Map);
     }
@@ -89,7 +61,6 @@ public final class MapSchema extends BaseSchema {
     }
 
     private Predicate<Object> shapeCheck(Map<String, BaseSchema> inputSchemas) {
-        //p - видимо, это вводимая снаружи Map<String, Object> mapToCheck
         return p -> {
             ObjectMapper mapper = new ObjectMapper();
             Map<?, ?> pMap = mapper.convertValue(p, Map.class);
