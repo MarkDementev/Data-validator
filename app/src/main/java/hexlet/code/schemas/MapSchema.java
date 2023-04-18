@@ -44,18 +44,18 @@ public final class MapSchema extends BaseSchema {
         return true;
     }
 
-    MapSchema required() {
+    public MapSchema required() {
         setIsRequiredTrue();
         return new MapSchema(isRequired, new LinkedHashMap<>(),
                 ONLY_MAPS_CHECK_NAME, onlyMapsCheck());
     }
 
-    MapSchema sizeof(int neededSize) {
+    public MapSchema sizeof(int neededSize) {
         return new MapSchema(isRequired, checks,
                 SIZE_OF_CHECK_NAME, sizeOfCheck(neededSize));
     }
 
-    MapSchema shape(Map<String, BaseSchema> newSchemas) {
+    public MapSchema shape(Map<String, BaseSchema> newSchemas) {
         this.schemas = newSchemas;
         return new MapSchema(isRequired, checks, schemas);
     }

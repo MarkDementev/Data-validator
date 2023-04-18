@@ -19,18 +19,18 @@ public final class NumberSchema extends BaseSchema {
         addCheck(checkToAddName, checkToAdd);
     }
 
-    NumberSchema required() {
+    public NumberSchema required() {
         setIsRequiredTrue();
         return new NumberSchema(isRequired, new LinkedHashMap<>(),
                 ONLY_NUMBERS_CHECK_NAME, onlyNumbersCheck());
     }
 
-    NumberSchema positive() {
+    public NumberSchema positive() {
         return new NumberSchema(isRequired, checks,
                 POSITIVE_CHECK_NAME, positiveCheck());
     }
 
-    NumberSchema range(int newStartRange, int newEndRange) {
+    public NumberSchema range(int newStartRange, int newEndRange) {
         return new NumberSchema(isRequired, checks,
                 RANGE_CHECK_NAME, rangeCheck(newStartRange, newEndRange));
     }

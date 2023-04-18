@@ -14,16 +14,16 @@ public final class StringSchema extends BaseSchema {
         addCheck(checkToAddName, checkToAdd);
     }
 
-    StringSchema required() {
+    public StringSchema required() {
         setIsRequiredTrue();
         return new StringSchema(isRequired, checks, "minLengthCheck", minLengthCheck(1));
     }
 
-    StringSchema minLength(int minLength) {
+    public StringSchema minLength(int minLength) {
         return new StringSchema(isRequired, checks, "minLengthCheck", minLengthCheck(minLength));
     }
 
-    StringSchema contains(String textToContains) {
+    public StringSchema contains(String textToContains) {
         return new StringSchema(isRequired, checks, "containsCheck", containsCheck(textToContains));
     }
 
