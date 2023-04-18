@@ -3,7 +3,6 @@ package hexlet.code.schemas;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Predicate;
 
