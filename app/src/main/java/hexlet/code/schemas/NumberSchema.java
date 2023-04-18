@@ -21,7 +21,7 @@ public final class NumberSchema extends BaseSchema {
 
     public NumberSchema required() {
         setIsRequiredTrue();
-        return new NumberSchema(isRequired, new LinkedHashMap<>(),
+        return new NumberSchema(isRequired, checks,
                 ONLY_NUMBERS_CHECK_NAME, onlyNumbersCheck());
     }
 

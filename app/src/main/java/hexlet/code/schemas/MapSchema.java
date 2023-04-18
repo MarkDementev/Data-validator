@@ -46,7 +46,7 @@ public final class MapSchema extends BaseSchema {
 
     public MapSchema required() {
         setIsRequiredTrue();
-        return new MapSchema(isRequired, new LinkedHashMap<>(),
+        return new MapSchema(isRequired, checks,
                 ONLY_MAPS_CHECK_NAME, onlyMapsCheck());
     }
 
