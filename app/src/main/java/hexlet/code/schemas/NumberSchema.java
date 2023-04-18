@@ -39,7 +39,7 @@ public final class NumberSchema extends BaseSchema {
     }
 
     private Predicate<Object> positiveCheck() {
-        return p -> ((int) p > 0);
+        return p -> (p == null || (int) p > 0);
     }
 
     private Predicate<Object> rangeCheck(int startRange, int endRange) {
