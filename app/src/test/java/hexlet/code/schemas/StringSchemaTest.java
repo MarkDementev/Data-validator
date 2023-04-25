@@ -12,13 +12,13 @@ public final class StringSchemaTest {
     private static final String FIRST_VALIDATING_STRING = "Mark";
     private static final String SECOND_VALIDATING_STRING = "Dementev";
     private static final String THIRD_VALIDATING_STRING = "Valentinovich";
-    private static final boolean BOOLEAN_VALIDATING_OBJECT = true;
-    private static final int INT_VALIDATING_OBJECT = 10;
-    private static final double DOUBLE_VALIDATING_OBJECT = 7.0;
     private static final String FIRST_CONTAINS_STRING = "De";
     private static final String SECOND_CONTAINS_STRING = "Dem";
     private static final String THIRD_CONTAINS_STRING = "Deme";
+    private static final int INT_VALIDATING_OBJECT = 10;
     private static final int MIN_LENGTH = 5;
+    private static final boolean BOOLEAN_VALIDATING_OBJECT = true;
+    private static final double DOUBLE_VALIDATING_OBJECT = 7.0;
     private Validator testValidator = new Validator();
     private StringSchema testSchema;
 

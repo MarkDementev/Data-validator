@@ -24,15 +24,15 @@ public final class MapSchemaTest {
     private static final String FIRST_STRING = "First";
     private static final String SECOND_STRING = "Second";
     private static final String THIRD_STRING = "Third";
-    private static final int MAP_ELEMENTS_COUNT = 2;
     private static final String FIRST_KEY = "name";
     private static final String SECOND_KEY = "age";
     private static final String FIRST_VALUE = "Kolya";
-    private static final int SECOND_VALUE = 100;
     private static final String THIRD_VALUE = "Maya";
     private static final String FOURTH_VALUE = "Valya";
-    private static final int FIFTH_VALUE = -5;
     private static final String EMPTY_STRING = "";
+    private static final int SECOND_VALUE = 100;
+    private static final int MAP_ELEMENTS_COUNT = 2;
+    private static final int FIFTH_VALUE = -5;
     private Validator testValidator = new Validator();
     private MapSchema testSchema;
 
