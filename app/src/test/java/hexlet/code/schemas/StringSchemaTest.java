@@ -11,10 +11,8 @@ public final class StringSchemaTest {
     private static final String EMPTY_STRING = "";
     private static final String FIRST_VALIDATING_STRING = "Mark";
     private static final String SECOND_VALIDATING_STRING = "Dementev";
-    private static final String THIRD_VALIDATING_STRING = "Valentinovich";
     private static final String FIRST_CONTAINS_STRING = "De";
-    private static final String SECOND_CONTAINS_STRING = "Dem";
-    private static final String THIRD_CONTAINS_STRING = "Deme";
+    private static final String SECOND_CONTAINS_STRING = "Deme";
     private static final int INT_VALIDATING_OBJECT = 10;
     private static final int MIN_LENGTH = 5;
     private static final boolean BOOLEAN_VALIDATING_OBJECT = true;
@@ -28,39 +26,85 @@ public final class StringSchemaTest {
     }
 
     @Test
-    public void testIsValidAfterBeforeRequired() {
-        assertThat(testSchema.isValid(null)).isEqualTo(true);
-        assertThat(testSchema.isValid(EMPTY_STRING)).isEqualTo(true);
-        testSchema.required();
-        assertThat(testSchema.isValid(EMPTY_STRING)).isEqualTo(false);
-        assertThat(testSchema.isValid(null)).isEqualTo(false);
+    public void testWithoutRequired() {
+        boolean stringSchemaValidationResult = testSchema
+                .isValid(null);
+        assertThat(stringSchemaValidationResult).isEqualTo(true);
     }
 
     @Test
-    public void testIsValidStringArgument() {
-        assertThat(testSchema.minLength(MIN_LENGTH).isValid(FIRST_VALIDATING_STRING)).isEqualTo(false);
-        assertThat(testSchema.isValid(SECOND_VALIDATING_STRING)).isEqualTo(true);
-        assertThat(testSchema.isValid(THIRD_VALIDATING_STRING)).isEqualTo(true);
+    public void testAfterRequired() {
+        boolean stringSchemaValidationResult = testSchema
+                .required()
+                .isValid(null);
+        assertThat(stringSchemaValidationResult).isEqualTo(false);
     }
 
     @Test
-    public void testIsValidNotStringArgument() {
-        assertThat(testSchema.isValid(BOOLEAN_VALIDATING_OBJECT)).isEqualTo(false);
-        assertThat(testSchema.isValid(INT_VALIDATING_OBJECT)).isEqualTo(false);
-        assertThat(testSchema.isValid(DOUBLE_VALIDATING_OBJECT)).isEqualTo(false);
+    public void testEmptyStringWithoutRequired() {
+        boolean stringSchemaValidationResult = testSchema
+                .isValid(EMPTY_STRING);
+        assertThat(stringSchemaValidationResult).isEqualTo(true);
     }
 
     @Test
-    public void testIsValidWithContains() {
-        assertThat(testSchema.contains(FIRST_CONTAINS_STRING)
-                .isValid(SECOND_VALIDATING_STRING))
-                .isEqualTo(true);
-        assertThat(testSchema.contains(SECOND_CONTAINS_STRING)
-                .isValid(SECOND_VALIDATING_STRING))
-                .isEqualTo(true);
-        assertThat(testSchema.contains(THIRD_CONTAINS_STRING)
-                .isValid(FIRST_VALIDATING_STRING))
-                .isEqualTo(false);
-        assertThat(testSchema.isValid(SECOND_CONTAINS_STRING)).isEqualTo(false);
+    public void testEmptyStringAfterRequired() {
+        boolean stringSchemaValidationResult = testSchema
+                .required()
+                .isValid(EMPTY_STRING);
+        assertThat(stringSchemaValidationResult).isEqualTo(false);
+    }
+
+    @Test
+    public void testBooleanArgument() {
+        boolean stringSchemaValidationResult = testSchema
+                .isValid(BOOLEAN_VALIDATING_OBJECT);
+        assertThat(stringSchemaValidationResult).isEqualTo(false);
+    }
+
+    @Test
+    public void testIntArgument() {
+        boolean stringSchemaValidationResult = testSchema
+                .isValid(INT_VALIDATING_OBJECT);
+        assertThat(stringSchemaValidationResult).isEqualTo(false);
+    }
+
+    @Test
+    public void testDoubleArgument() {
+        boolean stringSchemaValidationResult = testSchema
+                .isValid(DOUBLE_VALIDATING_OBJECT);
+        assertThat(stringSchemaValidationResult).isEqualTo(false);
+    }
+
+    @Test
+    public void testMinLengthFalse() {
+        boolean stringSchemaValidationResult = testSchema
+                .minLength(MIN_LENGTH)
+                .isValid(FIRST_VALIDATING_STRING);
+        assertThat(stringSchemaValidationResult).isEqualTo(false);
+    }
+
+    @Test
+    public void testMinLengthTrue() {
+        boolean stringSchemaValidationResult = testSchema
+                .minLength(MIN_LENGTH)
+                .isValid(SECOND_VALIDATING_STRING);
+        assertThat(stringSchemaValidationResult).isEqualTo(true);
+    }
+
+    @Test
+    public void testContainsTrue() {
+        boolean stringSchemaValidationResult = testSchema
+                .contains(FIRST_CONTAINS_STRING)
+                .isValid(SECOND_VALIDATING_STRING);
+        assertThat(stringSchemaValidationResult).isEqualTo(true);
+    }
+
+    @Test
+    public void testContainsFalse() {
+        boolean stringSchemaValidationResult = testSchema
+                .contains(SECOND_CONTAINS_STRING)
+                .isValid(FIRST_VALIDATING_STRING);
+        assertThat(stringSchemaValidationResult).isEqualTo(false);
     }
 }
