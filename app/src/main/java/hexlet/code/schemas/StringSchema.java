@@ -4,8 +4,12 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 public final class StringSchema extends BaseSchema {
+    private static final String ONLY_STRINGS_CHECK_NAME = "onlyStringsCheck";
+    private static final String MIN_LENGTH_CHECK_NAME = "minLengthCheck";
+    private static final String CONTAINS_CHECK_NAME = "containsCheck";
+
     public StringSchema() {
-        addCheck("onlyStringsCheck", onlyStringsCheck());
+        addCheck(ONLY_STRINGS_CHECK_NAME, onlyStringsCheck());
     }
 
     public StringSchema(boolean isRequired, Map<String, Predicate<Object>> checks,
@@ -16,16 +20,15 @@ public final class StringSchema extends BaseSchema {
     }
 
     public StringSchema required() {
-        setIsRequiredTrue();
-        return new StringSchema(isRequired, checks, "minLengthCheck", minLengthCheck(1));
+        return new StringSchema(true, checks, MIN_LENGTH_CHECK_NAME, minLengthCheck(1));
     }
 
     public StringSchema minLength(int minLength) {
-        return new StringSchema(isRequired, checks, "minLengthCheck", minLengthCheck(minLength));
+        return new StringSchema(isRequired, checks, MIN_LENGTH_CHECK_NAME, minLengthCheck(minLength));
     }
 
     public StringSchema contains(String textToContains) {
-        return new StringSchema(isRequired, checks, "containsCheck", containsCheck(textToContains));
+        return new StringSchema(isRequired, checks, CONTAINS_CHECK_NAME, containsCheck(textToContains));
     }
 
     private Predicate<Object> onlyStringsCheck() {

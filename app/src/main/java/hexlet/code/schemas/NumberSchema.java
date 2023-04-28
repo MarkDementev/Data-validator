@@ -20,8 +20,7 @@ public final class NumberSchema extends BaseSchema {
     }
 
     public NumberSchema required() {
-        setIsRequiredTrue();
-        return new NumberSchema(isRequired, checks,
+        return new NumberSchema(true, checks,
                 ONLY_NUMBERS_CHECK_NAME, onlyNumbersCheck());
     }
 

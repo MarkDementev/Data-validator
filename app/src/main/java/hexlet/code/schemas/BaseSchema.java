@@ -10,10 +10,6 @@ public abstract class BaseSchema {
 
     public abstract BaseSchema required();
 
-    public final void setIsRequiredTrue() {
-        isRequired = true;
-    }
-
     public final boolean isValid(Object validatingObject) {
         if (validatingObject == null) {
             return !isRequired;

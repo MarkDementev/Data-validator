@@ -33,8 +33,7 @@ public final class MapSchema extends BaseSchema {
     }
 
     public MapSchema required() {
-        setIsRequiredTrue();
-        return new MapSchema(isRequired, checks,
+        return new MapSchema(true, checks,
                 ONLY_MAPS_CHECK_NAME, onlyMapsCheck());
     }
 
