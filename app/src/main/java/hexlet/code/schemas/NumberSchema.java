@@ -14,7 +14,8 @@ public final class NumberSchema extends BaseSchema {
 
     public NumberSchema(boolean isRequired, Map<String, Predicate<Object>> checks,
                         String checkToAddName, Predicate<Object> checkToAdd) {
-        super(isRequired, checks);
+        this.isRequired = isRequired;
+        this.checks = checks;
         addCheck(checkToAddName, checkToAdd);
     }
 

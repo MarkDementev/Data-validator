@@ -18,14 +18,16 @@ public final class MapSchema extends BaseSchema {
 
     public MapSchema(boolean isRequired, Map<String, Predicate<Object>> checks,
                      String checkToAddName, Predicate<Object> checkToAdd) {
-        super(isRequired, checks);
+        this.isRequired = isRequired;
+        this.checks = checks;
         addCheck(checkToAddName, checkToAdd);
     }
 
     public MapSchema(boolean isRequired, Map<String, Predicate<Object>> checks,
                      String checkToAddName, Predicate<Object> checkToAdd,
                      Map<String, BaseSchema> newSchemas) {
-        super(isRequired, checks);
+        this.isRequired = isRequired;
+        this.checks = checks;
         this.schemas = newSchemas;
         addCheck(checkToAddName, checkToAdd);
     }

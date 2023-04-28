@@ -10,7 +10,8 @@ public final class StringSchema extends BaseSchema {
 
     public StringSchema(boolean isRequired, Map<String, Predicate<Object>> checks,
                         String checkToAddName, Predicate<Object> checkToAdd) {
-        super(isRequired, checks);
+        this.isRequired = isRequired;
+        this.checks = checks;
         addCheck(checkToAddName, checkToAdd);
     }
 

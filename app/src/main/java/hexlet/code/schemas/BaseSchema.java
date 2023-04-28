@@ -4,18 +4,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Predicate;
 
-public class BaseSchema {
+public abstract class BaseSchema {
     protected Map<String, Predicate<Object>> checks = new LinkedHashMap<>();
     protected boolean isRequired;
 
-    public BaseSchema() {
-        this.isRequired = false;
-    }
-
-    public BaseSchema(boolean newIsRequired, Map<String, Predicate<Object>> newChecks) {
-        this.isRequired = newIsRequired;
-        this.checks = newChecks;
-    }
+    public abstract BaseSchema required();
 
     public final void setIsRequiredTrue() {
         isRequired = true;
