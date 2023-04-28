@@ -14,12 +14,14 @@ public final class StringSchema extends BaseSchema {
 
     public StringSchema(boolean isRequired, Map<String, Predicate<Object>> checks,
                         String checkToAddName, Predicate<Object> checkToAdd) {
-        super(isRequired, checks);
+        this.isRequired = isRequired;
+        this.checks = checks;
         addCheck(checkToAddName, checkToAdd);
     }
 
     public StringSchema required() {
-        return new StringSchema(true, checks, MIN_LENGTH_CHECK_NAME, minLengthCheck(1));
+        setIsRequiredTrue();
+        return new StringSchema(isRequired, checks, ONLY_STRINGS_CHECK_NAME, minLengthCheck(1));
     }
 
     public StringSchema minLength(int minLength) {

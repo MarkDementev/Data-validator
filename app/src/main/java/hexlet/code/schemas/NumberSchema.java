@@ -14,12 +14,14 @@ public final class NumberSchema extends BaseSchema {
 
     public NumberSchema(boolean isRequired, Map<String, Predicate<Object>> checks,
                         String checkToAddName, Predicate<Object> checkToAdd) {
-        super(isRequired, checks);
+        this.isRequired = isRequired;
+        this.checks = checks;
         addCheck(checkToAddName, checkToAdd);
     }
 
     public NumberSchema required() {
-        return new NumberSchema(true, checks,
+        setIsRequiredTrue();
+        return new NumberSchema(isRequired, checks,
                 ONLY_NUMBERS_CHECK_NAME, onlyNumbersCheck());
     }
 
