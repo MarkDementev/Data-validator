@@ -44,7 +44,7 @@ public final class MapSchemaTest {
     public void testWithoutRequired() {
         boolean mapSchemaValidationResult = testSchema
                 .isValid(null);
-        assertThat(mapSchemaValidationResult).isEqualTo(true);
+        assertThat(mapSchemaValidationResult).isTrue();
     }
 
     @Test
@@ -52,56 +52,56 @@ public final class MapSchemaTest {
         boolean mapSchemaValidationResult = testSchema
                 .required()
                 .isValid(null);
-        assertThat(mapSchemaValidationResult).isEqualTo(false);
+        assertThat(mapSchemaValidationResult).isFalse();
     }
 
     @Test
     public void testHashMapArgument() {
         boolean mapSchemaValidationResult = testSchema
                 .isValid(new HashMap<>());
-        assertThat(mapSchemaValidationResult).isEqualTo(true);
+        assertThat(mapSchemaValidationResult).isTrue();
     }
 
     @Test
     public void testLinkedHashMapArgument() {
         boolean mapSchemaValidationResult = testSchema
                 .isValid(new LinkedHashMap<>());
-        assertThat(mapSchemaValidationResult).isEqualTo(true);
+        assertThat(mapSchemaValidationResult).isTrue();
     }
 
     @Test
     public void testHashtableArgument() {
         boolean mapSchemaValidationResult = testSchema
                 .isValid(new Hashtable<>());
-        assertThat(mapSchemaValidationResult).isEqualTo(true);
+        assertThat(mapSchemaValidationResult).isTrue();
     }
 
     @Test
     public void testTreeMapArgument() {
         boolean mapSchemaValidationResult = testSchema
                 .isValid(new TreeMap<>());
-        assertThat(mapSchemaValidationResult).isEqualTo(true);
+        assertThat(mapSchemaValidationResult).isTrue();
     }
 
     @Test
     public void testIntArgument() {
         boolean mapSchemaValidationResult = testSchema
                 .isValid(INT_ARRAY_VALIDATING_OBJECT);
-        assertThat(mapSchemaValidationResult).isEqualTo(false);
+        assertThat(mapSchemaValidationResult).isFalse();
     }
 
     @Test
     public void testStringArgument() {
         boolean mapSchemaValidationResult = testSchema
                 .isValid(STRING_LIST_VALIDATING_OBJECT);
-        assertThat(mapSchemaValidationResult).isEqualTo(false);
+        assertThat(mapSchemaValidationResult).isFalse();
     }
 
     @Test
     public void testBooleanArgument() {
         boolean mapSchemaValidationResult = testSchema
                 .isValid(BOOLEAN_SET_VALIDATING_OBJECT);
-        assertThat(mapSchemaValidationResult).isEqualTo(false);
+        assertThat(mapSchemaValidationResult).isFalse();
     }
 
     @Test
@@ -113,7 +113,7 @@ public final class MapSchemaTest {
         boolean mapSchemaValidationResult = testSchema
                 .sizeof(MAP_ELEMENTS_COUNT)
                 .isValid(testMap);
-        assertThat(mapSchemaValidationResult).isEqualTo(true);
+        assertThat(mapSchemaValidationResult).isTrue();
     }
 
     @Test
@@ -124,7 +124,7 @@ public final class MapSchemaTest {
         boolean mapSchemaValidationResult = testSchema
                 .sizeof(MAP_ELEMENTS_COUNT)
                 .isValid(testMap);
-        assertThat(mapSchemaValidationResult).isEqualTo(false);
+        assertThat(mapSchemaValidationResult).isFalse();
     }
 
     @Test
@@ -140,7 +140,7 @@ public final class MapSchemaTest {
         boolean mapSchemaValidationResult = testSchema
                 .shape(shapeValidations)
                 .isValid(mapToValidate);
-        assertThat(mapSchemaValidationResult).isEqualTo(true);
+        assertThat(mapSchemaValidationResult).isTrue();
     }
 
     @Test
@@ -156,7 +156,7 @@ public final class MapSchemaTest {
         boolean mapSchemaValidationResult = testSchema
                 .shape(shapeValidations)
                 .isValid(mapToValidate);
-        assertThat(mapSchemaValidationResult).isEqualTo(true);
+        assertThat(mapSchemaValidationResult).isTrue();
     }
 
     @Test
@@ -172,7 +172,7 @@ public final class MapSchemaTest {
         boolean mapSchemaValidationResult = testSchema
                 .shape(shapeValidations)
                 .isValid(mapToValidate);
-        assertThat(mapSchemaValidationResult).isEqualTo(false);
+        assertThat(mapSchemaValidationResult).isFalse();
     }
 
     @Test
@@ -188,6 +188,6 @@ public final class MapSchemaTest {
         boolean mapSchemaValidationResult = testSchema
                 .shape(shapeValidations)
                 .isValid(mapToValidate);
-        assertThat(mapSchemaValidationResult).isEqualTo(false);
+        assertThat(mapSchemaValidationResult).isFalse();
     }
 }

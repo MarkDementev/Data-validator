@@ -29,7 +29,7 @@ public final class NumberSchemaTest {
     public void testWithoutRequired() {
         boolean numberSchemaValidationResult = testSchema
                 .isValid(null);
-        assertThat(numberSchemaValidationResult).isEqualTo(true);
+        assertThat(numberSchemaValidationResult).isTrue();
     }
 
     @Test
@@ -37,14 +37,14 @@ public final class NumberSchemaTest {
         boolean numberSchemaValidationResult = testSchema
                 .required()
                 .isValid(null);
-        assertThat(numberSchemaValidationResult).isEqualTo(false);
+        assertThat(numberSchemaValidationResult).isFalse();
     }
 
     @Test
     public void testWithoutPositive() {
         boolean numberSchemaValidationResult = testSchema
                 .isValid(FIRST_VALIDATING_NEGATIVE_INT);
-        assertThat(numberSchemaValidationResult).isEqualTo(true);
+        assertThat(numberSchemaValidationResult).isTrue();
     }
 
     @Test
@@ -52,28 +52,28 @@ public final class NumberSchemaTest {
         boolean numberSchemaValidationResult = testSchema
                 .positive()
                 .isValid(FIRST_VALIDATING_NEGATIVE_INT);
-        assertThat(numberSchemaValidationResult).isEqualTo(false);
+        assertThat(numberSchemaValidationResult).isFalse();
     }
 
     @Test
     public void testBooleanArgument() {
         boolean numberSchemaValidationResult = testSchema
                 .isValid(BOOLEAN_NUMBER_VALIDATING_OBJECT);
-        assertThat(numberSchemaValidationResult).isEqualTo(false);
+        assertThat(numberSchemaValidationResult).isFalse();
     }
 
     @Test
     public void testStringArgument() {
         boolean numberSchemaValidationResult = testSchema
                 .isValid(STRING_NUMBER_VALIDATING_OBJECT);
-        assertThat(numberSchemaValidationResult).isEqualTo(false);
+        assertThat(numberSchemaValidationResult).isFalse();
     }
 
     @Test
     public void testDoubleArgument() {
         boolean numberSchemaValidationResult = testSchema
                 .isValid(DOUBLE_NUMBER_VALIDATING_OBJECT);
-        assertThat(numberSchemaValidationResult).isEqualTo(false);
+        assertThat(numberSchemaValidationResult).isFalse();
     }
 
     @Test
@@ -81,7 +81,7 @@ public final class NumberSchemaTest {
         boolean numberSchemaValidationResult = testSchema
                 .range(FIRST_RANGE_BORDER, SECOND_RANGE_BORDER)
                 .isValid(VALIDATING_INT);
-        assertThat(numberSchemaValidationResult).isEqualTo(true);
+        assertThat(numberSchemaValidationResult).isTrue();
     }
 
     @Test
@@ -90,6 +90,6 @@ public final class NumberSchemaTest {
                 .positive()
                 .range(THIRD_RANGE_BORDER, SECOND_RANGE_BORDER)
                 .isValid(SECOND_VALIDATING_NEGATIVE_INT);
-        assertThat(numberSchemaValidationResult).isEqualTo(false);
+        assertThat(numberSchemaValidationResult).isFalse();
     }
 }
