@@ -5,8 +5,6 @@ import hexlet.code.Validator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-import java.util.Set;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -18,20 +16,6 @@ import java.util.TreeMap;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public final class MapSchemaTest {
-    private static final int[] INT_ARRAY_VALIDATING_OBJECT = {};
-    private static final List<String> STRING_LIST_VALIDATING_OBJECT = new ArrayList<>();
-    private static final Set<Boolean> BOOLEAN_SET_VALIDATING_OBJECT = new HashSet<>();
-    private static final String FIRST_STRING = "First";
-    private static final String SECOND_STRING = "Second";
-    private static final String THIRD_STRING = "Third";
-    private static final String FIRST_KEY = "name";
-    private static final String SECOND_KEY = "age";
-    private static final String FIRST_STRING_VALUE = "Kolya";
-    private static final String SECOND_STRING_VALUE = "Valya";
-    private static final String EMPTY_STRING = "";
-    private static final int FIRST_INT_VALUE = 100;
-    private static final int SECOND_INT_VALUE = -5;
-    private static final int MAP_ELEMENTS_COUNT = 2;
     private Validator testValidator = new Validator();
     private MapSchema testSchema;
 
@@ -86,32 +70,32 @@ public final class MapSchemaTest {
     @Test
     public void testIntArgument() {
         boolean mapSchemaValidationResult = testSchema
-                .isValid(INT_ARRAY_VALIDATING_OBJECT);
+                .isValid(new int[0]);
         assertThat(mapSchemaValidationResult).isFalse();
     }
 
     @Test
     public void testStringArgument() {
         boolean mapSchemaValidationResult = testSchema
-                .isValid(STRING_LIST_VALIDATING_OBJECT);
+                .isValid(new ArrayList<>());
         assertThat(mapSchemaValidationResult).isFalse();
     }
 
     @Test
     public void testBooleanArgument() {
         boolean mapSchemaValidationResult = testSchema
-                .isValid(BOOLEAN_SET_VALIDATING_OBJECT);
+                .isValid(new HashSet<Boolean>());
         assertThat(mapSchemaValidationResult).isFalse();
     }
 
     @Test
     public void testSizeOfWhenTrueSize() {
         Map<String, String> testMap = new HashMap<>();
-        testMap.put(FIRST_STRING, SECOND_STRING);
-        testMap.put(SECOND_STRING, THIRD_STRING);
+        testMap.put("First", "Second");
+        testMap.put("Second", "Third");
 
         boolean mapSchemaValidationResult = testSchema
-                .sizeof(MAP_ELEMENTS_COUNT)
+                .sizeof(2)
                 .isValid(testMap);
         assertThat(mapSchemaValidationResult).isTrue();
     }
@@ -119,10 +103,10 @@ public final class MapSchemaTest {
     @Test
     public void testSizeOfWhenFalseSize() {
         Map<String, String> testMap = new HashMap<>();
-        testMap.put(FIRST_STRING, SECOND_STRING);
+        testMap.put("First", "Second");
 
         boolean mapSchemaValidationResult = testSchema
-                .sizeof(MAP_ELEMENTS_COUNT)
+                .sizeof(2)
                 .isValid(testMap);
         assertThat(mapSchemaValidationResult).isFalse();
     }
@@ -130,12 +114,12 @@ public final class MapSchemaTest {
     @Test
     public void testShapeTrueFirst() {
         Map<String, BaseSchema> shapeValidations = new HashMap<>();
-        shapeValidations.put(FIRST_KEY, testValidator.string().required());
-        shapeValidations.put(SECOND_KEY, testValidator.number().positive());
+        shapeValidations.put("name", testValidator.string().required());
+        shapeValidations.put("age", testValidator.number().positive());
 
         Map<String, Object> mapToValidate = new HashMap<>();
-        mapToValidate.put(FIRST_KEY, FIRST_STRING_VALUE);
-        mapToValidate.put(SECOND_KEY, FIRST_INT_VALUE);
+        mapToValidate.put("name", "Kolya");
+        mapToValidate.put("age", 100);
 
         boolean mapSchemaValidationResult = testSchema
                 .shape(shapeValidations)
@@ -146,12 +130,12 @@ public final class MapSchemaTest {
     @Test
     public void testShapeTrueSecond() {
         Map<String, BaseSchema> shapeValidations = new HashMap<>();
-        shapeValidations.put(FIRST_KEY, testValidator.string().required());
-        shapeValidations.put(SECOND_KEY, testValidator.number().positive());
+        shapeValidations.put("name", testValidator.string().required());
+        shapeValidations.put("age", testValidator.number().positive());
 
         Map<String, Object> mapToValidate = new HashMap<>();
-        mapToValidate.put(FIRST_KEY, SECOND_STRING_VALUE);
-        mapToValidate.put(SECOND_KEY, null);
+        mapToValidate.put("name", "Valya");
+        mapToValidate.put("age", null);
 
         boolean mapSchemaValidationResult = testSchema
                 .shape(shapeValidations)
@@ -162,12 +146,12 @@ public final class MapSchemaTest {
     @Test
     public void testShapeFalseFirst() {
         Map<String, BaseSchema> shapeValidations = new HashMap<>();
-        shapeValidations.put(FIRST_KEY, testValidator.string().required());
-        shapeValidations.put(SECOND_KEY, testValidator.number().positive());
+        shapeValidations.put("name", testValidator.string().required());
+        shapeValidations.put("age", testValidator.number().positive());
 
         Map<String, Object> mapToValidate = new HashMap<>();
-        mapToValidate.put(FIRST_KEY, EMPTY_STRING);
-        mapToValidate.put(SECOND_KEY, null);
+        mapToValidate.put("name", "");
+        mapToValidate.put("age", null);
 
         boolean mapSchemaValidationResult = testSchema
                 .shape(shapeValidations)
@@ -178,12 +162,12 @@ public final class MapSchemaTest {
     @Test
     public void testShapeFalseSecond() {
         Map<String, BaseSchema> shapeValidations = new HashMap<>();
-        shapeValidations.put(FIRST_KEY, testValidator.string().required());
-        shapeValidations.put(SECOND_KEY, testValidator.number().positive());
+        shapeValidations.put("name", testValidator.string().required());
+        shapeValidations.put("age", testValidator.number().positive());
 
         Map<String, Object> mapToValidate = new HashMap<>();
-        mapToValidate.put(FIRST_KEY, SECOND_STRING_VALUE);
-        mapToValidate.put(SECOND_KEY, SECOND_INT_VALUE);
+        mapToValidate.put("name", "Valya");
+        mapToValidate.put("age", -5);
 
         boolean mapSchemaValidationResult = testSchema
                 .shape(shapeValidations)
