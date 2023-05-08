@@ -1,6 +1,5 @@
 package hexlet.code.schemas;
 
-import java.util.Map;
 import java.util.function.Predicate;
 
 public final class StringSchema extends BaseSchema {
@@ -12,24 +11,20 @@ public final class StringSchema extends BaseSchema {
         addCheck(ONLY_STRINGS_CHECK_NAME, onlyStringsCheck());
     }
 
-    public StringSchema(boolean isRequired, Map<String, Predicate<Object>> checks,
-                        String checkToAddName, Predicate<Object> checkToAdd) {
-        this.isRequired = isRequired;
-        this.checks = checks;
-        addCheck(checkToAddName, checkToAdd);
-    }
-
     public StringSchema required() {
         setIsRequiredTrue();
-        return new StringSchema(isRequired, checks, ONLY_STRINGS_CHECK_NAME, minLengthCheck(1));
+        addCheck(ONLY_STRINGS_CHECK_NAME, minLengthCheck(1));
+        return this;
     }
 
     public StringSchema minLength(int minLength) {
-        return new StringSchema(isRequired, checks, MIN_LENGTH_CHECK_NAME, minLengthCheck(minLength));
+        addCheck(MIN_LENGTH_CHECK_NAME, minLengthCheck(minLength));
+        return this;
     }
 
     public StringSchema contains(String textToContains) {
-        return new StringSchema(isRequired, checks, CONTAINS_CHECK_NAME, containsCheck(textToContains));
+        addCheck(CONTAINS_CHECK_NAME, containsCheck(textToContains));
+        return this;
     }
 
     private Predicate<Object> onlyStringsCheck() {

@@ -1,6 +1,5 @@
 package hexlet.code.schemas;
 
-import java.util.Map;
 import java.util.function.Predicate;
 
 public final class NumberSchema extends BaseSchema {
@@ -12,27 +11,19 @@ public final class NumberSchema extends BaseSchema {
         addCheck(ONLY_NUMBERS_CHECK_NAME, onlyNumbersCheck());
     }
 
-    public NumberSchema(boolean isRequired, Map<String, Predicate<Object>> checks,
-                        String checkToAddName, Predicate<Object> checkToAdd) {
-        this.isRequired = isRequired;
-        this.checks = checks;
-        addCheck(checkToAddName, checkToAdd);
-    }
-
     public NumberSchema required() {
         setIsRequiredTrue();
-        return new NumberSchema(isRequired, checks,
-                ONLY_NUMBERS_CHECK_NAME, onlyNumbersCheck());
+        return this;
     }
 
     public NumberSchema positive() {
-        return new NumberSchema(isRequired, checks,
-                POSITIVE_CHECK_NAME, positiveCheck());
+        addCheck(POSITIVE_CHECK_NAME, positiveCheck());
+        return this;
     }
 
     public NumberSchema range(int newStartRange, int newEndRange) {
-        return new NumberSchema(isRequired, checks,
-                RANGE_CHECK_NAME, rangeCheck(newStartRange, newEndRange));
+        addCheck(RANGE_CHECK_NAME, rangeCheck(newStartRange, newEndRange));
+        return this;
     }
 
     private Predicate<Object> onlyNumbersCheck() {

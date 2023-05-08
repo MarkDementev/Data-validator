@@ -16,38 +16,20 @@ public final class MapSchema extends BaseSchema {
         addCheck(ONLY_MAPS_CHECK_NAME, onlyMapsCheck());
     }
 
-    public MapSchema(boolean isRequired, Map<String, Predicate<Object>> checks,
-                     String checkToAddName, Predicate<Object> checkToAdd) {
-        this.isRequired = isRequired;
-        this.checks = checks;
-        addCheck(checkToAddName, checkToAdd);
-    }
-
-    public MapSchema(boolean isRequired, Map<String, Predicate<Object>> checks,
-                     String checkToAddName, Predicate<Object> checkToAdd,
-                     Map<String, BaseSchema> newSchemas) {
-        this.isRequired = isRequired;
-        this.checks = checks;
-        this.schemas = newSchemas;
-        addCheck(checkToAddName, checkToAdd);
-    }
-
     public MapSchema required() {
         setIsRequiredTrue();
-        return new MapSchema(isRequired, checks,
-                ONLY_MAPS_CHECK_NAME, onlyMapsCheck());
+        return this;
     }
 
     public MapSchema sizeof(int neededSize) {
-        return new MapSchema(isRequired, checks,
-                SIZE_OF_CHECK_NAME, sizeOfCheck(neededSize));
+        addCheck(SIZE_OF_CHECK_NAME, sizeOfCheck(neededSize));
+        return this;
     }
 
     public MapSchema shape(Map<String, BaseSchema> newSchemas) {
         this.schemas = newSchemas;
-        return new MapSchema(isRequired, checks,
-                SHAPE_CHECK_NAME, shapeCheck(newSchemas),
-                schemas);
+        addCheck(SHAPE_CHECK_NAME, shapeCheck(newSchemas));
+        return this;
     }
 
     private Predicate<Object> onlyMapsCheck() {
