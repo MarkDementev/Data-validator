@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-    id 'application'
     id "se.patrikerdes.use-latest-versions" version "0.2.18"
     id "com.github.ben-manes.versions" version "0.46.0"
     id 'checkstyle'
@@ -37,10 +36,6 @@ jacocoTestReport {
     reports {
         xml.required = true
     }
-}
-
-application {
-    mainClass = 'hexlet.code.App'
 }
 
 compileJava {
