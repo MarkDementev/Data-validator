@@ -2,13 +2,10 @@ package hexlet.code.schemas;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
 
 public final class MapSchema extends BaseSchema {
-    private Map<String, BaseSchema> schemas = new HashMap<>();
-
     public MapSchema() {
         addCheck("onlyMapsCheck", onlyMapsCheck());
     }
@@ -23,9 +20,8 @@ public final class MapSchema extends BaseSchema {
         return this;
     }
 
-    public MapSchema shape(Map<String, BaseSchema> newSchemas) {
-        this.schemas = newSchemas;
-        addCheck("shapeCheck", shapeCheck(newSchemas));
+    public MapSchema shape(Map<String, BaseSchema> inputSchemas) {
+        addCheck("shapeCheck", shapeCheck(inputSchemas));
         return this;
     }
 
