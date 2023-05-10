@@ -3,12 +3,8 @@ package hexlet.code.schemas;
 import java.util.function.Predicate;
 
 public final class NumberSchema extends BaseSchema {
-    private static final String ONLY_NUMBERS_CHECK_NAME = "onlyNumbersCheck";
-    private static final String POSITIVE_CHECK_NAME = "positiveCheck";
-    private static final String RANGE_CHECK_NAME = "rangeCheck";
-
     public NumberSchema() {
-        addCheck(ONLY_NUMBERS_CHECK_NAME, onlyNumbersCheck());
+        addCheck("onlyNumbersCheck", onlyNumbersCheck());
     }
 
     public NumberSchema required() {
@@ -17,12 +13,12 @@ public final class NumberSchema extends BaseSchema {
     }
 
     public NumberSchema positive() {
-        addCheck(POSITIVE_CHECK_NAME, positiveCheck());
+        addCheck("positiveCheck", positiveCheck());
         return this;
     }
 
     public NumberSchema range(int newStartRange, int newEndRange) {
-        addCheck(RANGE_CHECK_NAME, rangeCheck(newStartRange, newEndRange));
+        addCheck("rangeCheck", rangeCheck(newStartRange, newEndRange));
         return this;
     }
 

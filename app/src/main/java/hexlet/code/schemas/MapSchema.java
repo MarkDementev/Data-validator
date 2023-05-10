@@ -7,13 +7,10 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 public final class MapSchema extends BaseSchema {
-    private static final String ONLY_MAPS_CHECK_NAME = "onlyMapsCheck";
-    private static final String SIZE_OF_CHECK_NAME = "sizeofCheck";
-    private static final String SHAPE_CHECK_NAME = "shapeCheck";
     private Map<String, BaseSchema> schemas = new HashMap<>();
 
     public MapSchema() {
-        addCheck(ONLY_MAPS_CHECK_NAME, onlyMapsCheck());
+        addCheck("onlyMapsCheck", onlyMapsCheck());
     }
 
     public MapSchema required() {
@@ -22,13 +19,13 @@ public final class MapSchema extends BaseSchema {
     }
 
     public MapSchema sizeof(int neededSize) {
-        addCheck(SIZE_OF_CHECK_NAME, sizeOfCheck(neededSize));
+        addCheck("sizeofCheck", sizeOfCheck(neededSize));
         return this;
     }
 
     public MapSchema shape(Map<String, BaseSchema> newSchemas) {
         this.schemas = newSchemas;
-        addCheck(SHAPE_CHECK_NAME, shapeCheck(newSchemas));
+        addCheck("shapeCheck", shapeCheck(newSchemas));
         return this;
     }
 
