@@ -20,6 +20,4 @@ update-deps:
 	./gradlew useLatestVersions
 
 
-build-run: build
-
 .PHONY: build
